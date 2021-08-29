@@ -39,9 +39,9 @@ const Flat = () => {
                 </View>
 
                 <View style={styles.txtStyle}>
-                    <Text style={styles.txtName}> {item.name} </Text>
-                    <Text style={styles.txtArtistName}> {item.artistName} </Text>
-                    <Text style={styles.txtTags}>#{item.tags[0]} </Text>
+                    <Text style={styles.txtName}>{item.name}</Text>
+                    <Text style={styles.txtArtistName}>{item.artistName}</Text>
+                    <Text style={styles.txtTags}>#{item.tags[0]}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.touchChoose} >
