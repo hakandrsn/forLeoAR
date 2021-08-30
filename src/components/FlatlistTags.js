@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import {Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
-import { styles } from '../GlobalStyles';
+import { styles } from '../Styles/tagsStyles';
+import { uri } from '../Commontype'
 
 const FlatlistTags = () => {
     const [data, setData] = useState({})
-    const [showData, setShowData] = useState([]);
-    const [musicType, setMusicType] = useState()
-
-
-
+    const [musicTags, setMusicTags] = useState([]);
+    const [musicTagsData, setMusicTagsData] = useState();
     const getData = async () => {
         try {
-            const uri = "https://gist.githubusercontent.com/ardalahmet/5eb3126d9a9d9ca1c689f3ee309e2972/raw/bdabb92aa83ed3ea8354a8015660fa444228e12a/musicData.json"
             let response = await fetch(uri)
             let responseData = await response.json()
             setData(responseData.data)
-            const result1 = Object.keys(data).map(function (key, index) {
+            const musicData = Object.keys(data).map(function (key, index) {
                 return {
                     ...data[key],
                     id: key
                 }
             })
-            setShowData(result1)
+            setMusicTags(musicData)
         } catch (error) {
             console.log(error);
         }
@@ -29,15 +26,14 @@ const FlatlistTags = () => {
     //I listed every tags
     let obj = [];
     const filt = () => {
-        for (let i = 0; i < showData.length; i++) {
-            for (let j = 0; j < showData[i].tags.length; j++) {
-                let list = [];
-                list = showData[i].tags[j]
-                obj.push(list)
+        for (let i = 0; i < musicTags.length; i++) {
+            for (let j = 0; j < musicTags[i].tags.length; j++) {
+                let listTags = [];
+                listTags = musicTags[i].tags[j]
+                obj.push(listTags)
             }
         }
     }
-
     const repeat = () => {
         const layout = obj.filter((item, index) => {
             return obj.indexOf(item) === index;
@@ -47,21 +43,16 @@ const FlatlistTags = () => {
         for (let i = 0; i < layout.length; i++) {
             var j = layout[i].charAt().toUpperCase();
             layout[i] = j + layout[i].substr(1).toLowerCase();
-
         }
-        setMusicType(layout)
-
+        setMusicTagsData(layout)
     }
-
     useEffect(() => {
         getData();
         filt();
         repeat();
         return () => {
-            //    console.log(musicType)
         }
-    }, [])
-
+    }, [data])
     const renderItem = ({ item }) => {
         return (
             <TouchableOpacity style={styles.renderFlatTouch}>
@@ -69,17 +60,15 @@ const FlatlistTags = () => {
             </TouchableOpacity>
         )
     }
-
     return (
         <SafeAreaView style={styles.FlatConTags}>
             <FlatList
                 horizontal={true}
-                data={musicType}
+                data={musicTagsData}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={renderItem}
             />
         </SafeAreaView>
     )
 }
-
 export default FlatlistTags

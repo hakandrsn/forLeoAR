@@ -1,17 +1,13 @@
 import React from 'react'
 import {SafeAreaView} from 'react-native'
-import FlatlistCon from './components/FlatlistCon'
-import FlatlistTags from './components/FlatlistTags'
-import Header from './components/Header'
-import { styles } from './GlobalStyles'
+import MainScreen from './Screens/MainScreen'
+import { styles } from './Styles/mainScreenStyles'
 
 
 const App = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <Header />
-            <FlatlistTags />
-            <FlatlistCon />
+            <MainScreen />
         </SafeAreaView>
     )
 }
